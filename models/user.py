@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Boolean, Column, DateTime, String
 
-from models.base import BaseModel
+from models.base_model import BaseModel
 
 
 class User(BaseModel):

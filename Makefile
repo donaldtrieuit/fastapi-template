@@ -23,6 +23,10 @@ install-dependencies:
 	poetry install
 .PHONY: install-dependencies
 
+black:
+	poetry run black .
+.PHONY: black
+
 isort:
 	 isort --atomic .
 .PHONY: isort
@@ -44,15 +48,15 @@ test:
 .PHONY: test
 
 migrate:
-	alembic upgrade head
+	poetry run alembic upgrade head
 .PHONY: migrate
 
 make-migration:
-	alembic revision --autogenerate
+	poetry run alembic revision --autogenerate
 .PHONY: make-migration
 
 server:
-	python manage.py runserver 0.0.0.0:8000
+	uvicorn main:app --reload
 .PHONY: server
 
 dev-setup: \
@@ -61,8 +65,8 @@ dev-setup: \
 .PHONY: dev-setup
 
 local-ci: \
-	blank \
 	isort \
+	black \
 	flake8 \
 	autopep8
 .PHONY: local-ci
